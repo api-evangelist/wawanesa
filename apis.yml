@@ -22,7 +22,14 @@ description: >-
   login with onboarding brokered by a Wawanesa Business Development
   representative. Canada has no open-insurance mandate — Consumer-Driven Banking
   excludes insurance outright — so the connectivity layer here is CSIO, not
-  ACORD, and the honest posture is partner-gated with no public API.
+  ACORD, and the honest posture is partner-gated with no public API. What
+  Wawanesa does publish is certification: it holds CSIO's API Security Standards
+  Certification (2024-10-29), was the first CSIO member certified in JSON API
+  Standards for Billing (2025-02-05), was the first insurer to attain Claims
+  eDocs Certification (2022-04-04), and contributed nine reusable API packages —
+  Quote, New Business, Policy Inquiry, Policy Update List, Policy Cancellation,
+  Risk Appetite, Required Fields, Billing Inquiry and eDocs — to CSIO's
+  Reusable Services Library for other carriers and BMS vendors to implement.
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
 - Insurance
@@ -75,6 +82,20 @@ apis:
   - type: Authentication
     url: https://login.brokerplatform.wawanesa.com/.well-known/openid-configuration
 common:
+- type: DomainSecurity
+  url: security/wawanesa-domain-security.yml
+- type: Authentication
+  url: authentication/wawanesa-authentication.yml
+- type: OAuthScopes
+  url: scopes/wawanesa-scopes.yml
+- type: WellKnown
+  url: well-known/wawanesa-well-known.yml
+- type: Conformance
+  url: conformance/wawanesa-conformance.yml
+- type: Compliance
+  url: https://csio.com/news/wawanesa-insurance-achieves-api-security-standards-certification-safeguarding-data-and
+- type: LLMsTxt
+  url: llms/wawanesa-llms.txt
 - type: Website
   url: https://www.wawanesa.com/canada/
 - type: Blog
@@ -88,6 +109,8 @@ common:
 - type: CustomerPortal
   url: https://membercentre.wawanesa.com/
 - type: Contact
+  url: https://www.wawanesa.com/canada/contact-us/inquiries-and-feedback.html
+- type: Support
   url: https://www.wawanesa.com/canada/contact-us/inquiries-and-feedback.html
 - type: PrivacyPolicy
   url: https://www.wawanesa.com/canada/pip/about-privacy.html

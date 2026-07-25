@@ -1,0 +1,168 @@
+generated: '2026-07-25'
+method: searched
+source: >-
+  CSIO (Centre for Study of Insurance Operations) certification announcements
+  and the CSIO Reusable Services Library, plus live anonymous fetch of the
+  Wawanesa Broker Platform OIDC/OAuth discovery documents (2026-07-25)
+note: >-
+  Wawanesa publishes no OpenAPI, so nothing here is derived from a spec. Every
+  `conforms: true` entry is backed by a named, dated third-party certification
+  from CSIO — Canada's insurance data-standards body, which plays the role
+  ACORD/IVANS plays in the United States — or by a discovery document fetched
+  live from a Wawanesa host. ACORD is explicitly absent: Wawanesa's own site
+  search returns no results for ACORD, and every standards claim it makes names
+  CSIO.
+standards:
+- id: csio-api-security-standards
+  name: CSIO API Security Standards
+  conforms: true
+  status: certified
+  date: '2024-10-29'
+  evidence: >-
+    CSIO announcement — Wawanesa achieved CSIO's API Security Standards
+    Certification; the standards provide "a standard authentication and
+    authorization API model" and certification verifies "all security concerns
+    for API endpoints have been addressed"
+  source: https://csio.com/news/wawanesa-insurance-achieves-api-security-standards-certification-safeguarding-data-and
+- id: csio-json-api-standards
+  name: CSIO JSON API Standards (Billing use cases)
+  conforms: true
+  status: certified
+  date: '2025-02-05'
+  first_in_industry: true
+  evidence: >-
+    CSIO announcement — Wawanesa is the FIRST CSIO member certified in JSON API
+    Standards, implemented for Billing use cases, enabling brokers to pull
+    real-time payment status and billing schedules into their Broker Management
+    System
+  source: https://csio.com/news/wawanesa-insurance-first-insurer-achieve-csios-json-api-standards-certification
+- id: csio-commercial-small-business-standards
+  name: CSIO Commercial Small Business Standards
+  conforms: true
+  status: aligned
+  date: '2022-03-30'
+  evidence: >-
+    Wawanesa first-party announcement — "New API aligns with CSIO Commercial
+    Small Business Standards ... Fully aligned with CSIO data standards"
+  source: https://www.wawanesa.com/canada/news/wawanesa-improves-insurance-quotes-for-small-businesses
+- id: csio-edocs
+  name: CSIO eDocs Standards
+  conforms: true
+  status: certified
+  date: '2025-01-13'
+  evidence: >-
+    CSIO announcement — Wawanesa certified against the UPDATED eDocs Standards,
+    sending updated eDocs codes and descriptions to Broker Management Systems.
+    Wawanesa first achieved personal lines eDocs certification in 2014 and
+    commercial lines eDocs certification on 2020-10-21.
+  source: https://csio.com/news/csio-applauds-wawanesa-insurance-achieving-csios-edocs-certification
+  prior:
+  - {scope: personal lines eDocs, date: '2014'}
+  - {scope: commercial lines eDocs, date: '2020-10-21', source: 'https://csio.com/news/wawanesa-mutual-insurance-company-obtains-csio-certification-commercial-lines-edocs'}
+- id: csio-claims-edocs
+  name: CSIO Claims eDocs Certification (Phase 1)
+  conforms: true
+  status: certified
+  date: '2022-04-04'
+  first_in_industry: true
+  evidence: >-
+    CSIO announcement — Wawanesa is the FIRST insurer to attain Claims eDocs
+    Certification; Phase 1 covers claim opening, re-opening and closing
+    notifications delivered into the broker's BMS
+  source: https://csio.com/news/wawanesa-mutual-insurance-company-becomes-first-insurer-attain-csio-claims-edocs-certification
+- id: csio-my-proof-of-insurance
+  name: CSIO My Proof of Insurance (eDelivery / electronic pink slips)
+  conforms: true
+  status: implemented
+  date: '2020-11-29'
+  evidence: >-
+    Wawanesa implemented CSIO's My Proof of Insurance; eSlips soft-launched in
+    Alberta October 2019, Ontario digital policy documents piloted 2020-11-01,
+    full electronic document delivery rolled out across Canada 2020-11-29
+  source: https://csio.com/news/wawanesa-goes-paperless-csios-my-proof-insurance-solution
+- id: ibac-data-exchange
+  name: IBAC Data Exchange / DX Connect initiative
+  conforms: true
+  status: participant
+  date: '2022-03-28'
+  evidence: >-
+    Wawanesa first-party announcement — "has also adopted numerous APIs that
+    help make doing business easier, and is proud to take a leadership role in
+    the Insurance Brokers Association of Canada's D/X initiative"
+  source: https://www.wawanesa.com/canada/news/wawanesa-furthers-commitment-to-brokers-with-new-broker-platform
+- id: oauth2
+  name: OAuth 2.0
+  conforms: true
+  evidence: >-
+    live RFC 8414 authorization-server metadata at
+    login.brokerplatform.wawanesa.com/.well-known/oauth-authorization-server
+    (Okta); Salesforce /services/oauth2/* endpoints on brokerplatform.wawanesa.com
+  scope: broker sign-in only — no third-party developer credential is documented
+  source: well-known/wawanesa-well-known.yml
+- id: oidc
+  name: OpenID Connect Discovery 1.0
+  conforms: true
+  evidence: >-
+    two live /.well-known/openid-configuration documents (Okta issuer and
+    Salesforce Experience Cloud issuer) fetched anonymously
+  source: well-known/wawanesa-well-known.yml
+- id: rfc8414
+  name: OAuth 2.0 Authorization Server Metadata
+  conforms: true
+  evidence: 200 at login.brokerplatform.wawanesa.com/.well-known/oauth-authorization-server
+- id: pkce
+  name: PKCE (RFC 7636)
+  conforms: true
+  evidence: code_challenge_methods_supported=[S256] on the Okta broker issuer
+- id: acord
+  name: ACORD standards
+  conforms: false
+  evidence: >-
+    no ACORD reference anywhere on Wawanesa's site; first-party site search for
+    "ACORD" returns "No results found". Canada's broker-connectivity standard is
+    CSIO.
+- id: rfc9116-security-txt
+  name: security.txt
+  conforms: false
+  evidence: no /.well-known/security.txt on any Wawanesa host
+- id: rfc9457-problem-details
+  name: RFC 9457 Problem Details
+  conforms: unknown
+  evidence: no public API surface or spec to inspect
+- id: openapi
+  name: OpenAPI
+  conforms: false
+  evidence: >-
+    no OpenAPI/Swagger document published on any Wawanesa host; api.wawanesa.com
+    answers 403 for /openapi.json, /openapi.yaml, /swagger.json,
+    /v1/openapi.json, /api-docs and /docs
+- id: fhir
+  name: HL7 FHIR
+  conforms: false
+  evidence: not a health-data provider
+published_api_packages:
+  registry: CSIO Reusable Services Library (RDSL)
+  url: https://csio.com/standards-testing-tools/reusable-services-library
+  access: names and last-updated dates are public; the packages themselves are
+    downloadable by CSIO vendor and carrier members
+  note: >-
+    Wawanesa contributed nine API packages to the industry Reusable Services
+    Library so other CSIO carriers and Broker Management System vendors could
+    reuse them. This is the most concrete public inventory of Wawanesa's
+    broker-facing API surface. The definitions themselves are member-gated, so
+    no spec is harvested here — only the published names and dates.
+  packages:
+  - {name: Quote API, last_updated: '2021-10-13'}
+  - {name: New Business API, last_updated: '2021-10-13'}
+  - {name: Policy Inquiry API, last_updated: '2021-10-13'}
+  - {name: Policy Update List API, last_updated: '2021-10-13'}
+  - {name: Policy Cancellation API, last_updated: '2021-10-13'}
+  - {name: Risk Appetite API, last_updated: '2021-10-13'}
+  - {name: Required Fields API, last_updated: '2021-10-13'}
+  - {name: Billing Inquiry API, last_updated: '2021-02-10'}
+  - {name: eDocs API, last_updated: '2021-02-10'}
+related:
+  authentication: authentication/wawanesa-authentication.yml
+  scopes: scopes/wawanesa-scopes.yml
+  well_known: well-known/wawanesa-well-known.yml
+  domain_security: security/wawanesa-domain-security.yml

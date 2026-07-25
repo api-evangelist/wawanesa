@@ -1,0 +1,113 @@
+generated: '2026-07-25'
+method: searched
+source: >-
+  live anonymous fetch of the OpenID Connect / OAuth 2.0 discovery documents on
+  the Wawanesa Broker Platform hosts (2026-07-25), plus CSIO's published API
+  Security Standards certification for Wawanesa
+docs: https://login.brokerplatform.wawanesa.com/.well-known/openid-configuration
+note: >-
+  Wawanesa publishes no OpenAPI, so this profile is not derived from a spec. It
+  is harvested from the only authentication metadata Wawanesa exposes on the
+  open internet: the identity providers in front of the gated broker channel.
+  These documents govern how a human broker signs in to the Broker Platform.
+  There is NO documented machine-to-machine credential, client-registration
+  path, or token endpoint for a third-party developer to call a Wawanesa
+  insurance API — onboarding runs through a Wawanesa Business Development
+  representative. The business-level auth model for the broker APIs is defined
+  by CSIO's API Security Standards (a standard authentication and authorization
+  API model for Canadian carriers and Broker Management System vendors), which
+  Wawanesa was certified against on 2024-10-29; the standard itself is
+  member-gated at csio.com and is not reproduced here.
+summary:
+  types: [oauth2, openIdConnect]
+  api_key_in: []
+  oauth2_flows: [authorizationCode, implicit, refreshToken, password, deviceCode, clientCredentials]
+  public_developer_credential: false
+  self_serve_signup: false
+  onboarding: contact a Wawanesa Business Development representative (broker channel only)
+schemes:
+- name: BrokerPlatformOkta
+  type: openIdConnect
+  role: broker identity provider for the Wawanesa Broker Platform
+  provider: Okta
+  openIdConnectUrl: https://login.brokerplatform.wawanesa.com/.well-known/openid-configuration
+  issuer: https://login.brokerplatform.wawanesa.com
+  authorizationUrl: https://login.brokerplatform.wawanesa.com/oauth2/v1/authorize
+  tokenUrl: https://login.brokerplatform.wawanesa.com/oauth2/v1/token
+  userinfoUrl: https://login.brokerplatform.wawanesa.com/oauth2/v1/userinfo
+  jwksUri: https://login.brokerplatform.wawanesa.com/oauth2/v1/keys
+  registrationEndpoint: https://login.brokerplatform.wawanesa.com/oauth2/v1/clients
+  introspectionEndpoint: https://login.brokerplatform.wawanesa.com/oauth2/v1/introspect
+  revocationEndpoint: https://login.brokerplatform.wawanesa.com/oauth2/v1/revoke
+  deviceAuthorizationEndpoint: https://login.brokerplatform.wawanesa.com/oauth2/v1/device/authorize
+  grantTypes:
+  - authorization_code
+  - implicit
+  - refresh_token
+  - password
+  - urn:ietf:params:oauth:grant-type:device_code
+  tokenEndpointAuthMethods:
+  - client_secret_basic
+  - client_secret_post
+  - client_secret_jwt
+  - private_key_jwt
+  - none
+  pkce: [S256]
+  dpopSigningAlgs: [RS256, RS384, RS512, ES256, ES384, ES512]
+  idTokenSigningAlgs: [RS256]
+  scopeCount: 7
+  scopes_note: stock OIDC scopes (openid, email, profile, address, phone, offline_access, groups)
+  sources: [well-known/wawanesa-brokerplatform-login-openid-configuration.json]
+- name: BrokerPlatformOktaOrgAuthorizationServer
+  type: oauth2
+  role: Okta org authorization server (platform administration, not an insurance API)
+  metadata: https://login.brokerplatform.wawanesa.com/.well-known/oauth-authorization-server
+  spec: RFC 8414
+  issuer: https://login.brokerplatform.wawanesa.com
+  grantTypes:
+  - authorization_code
+  - implicit
+  - refresh_token
+  - password
+  - client_credentials
+  - urn:ietf:params:oauth:grant-type:device_code
+  scopeCount: 83
+  scopes_note: >-
+    all 83 advertised scopes are Okta platform management scopes (okta.users.*,
+    okta.apps.*, okta.groups.*, ...), not Wawanesa insurance scopes
+  sources: [well-known/wawanesa-brokerplatform-login-oauth-authorization-server.json]
+- name: BrokerPlatformSalesforce
+  type: openIdConnect
+  role: Salesforce Experience Cloud OIDC for the Broker Platform community
+  provider: Salesforce Experience Cloud
+  openIdConnectUrl: https://brokerplatform.wawanesa.com/.well-known/openid-configuration
+  issuer: https://brokerplatform.wawanesa.com
+  authorizationUrl: https://brokerplatform.wawanesa.com/services/oauth2/authorize
+  tokenUrl: https://brokerplatform.wawanesa.com/services/oauth2/token
+  userinfoUrl: https://brokerplatform.wawanesa.com/services/oauth2/userinfo
+  jwksUri: https://brokerplatform.wawanesa.com/id/keys
+  registrationEndpoint: https://brokerplatform.wawanesa.com/services/oauth2/register
+  introspectionEndpoint: https://brokerplatform.wawanesa.com/services/oauth2/introspect
+  revocationEndpoint: https://brokerplatform.wawanesa.com/services/oauth2/revoke
+  endSessionEndpoint: https://brokerplatform.wawanesa.com/services/auth/idp/oidc/logout
+  tokenEndpointAuthMethods:
+  - client_secret_post
+  - client_secret_basic
+  - private_key_jwt
+  scopeCount: 36
+  scopes_note: stock Salesforce platform scopes (api, web, chatter_api, cdp_*, ...)
+  sources: [well-known/wawanesa-brokerplatform-openid-configuration.json]
+standards:
+- id: csio-api-security-standards
+  name: CSIO API Security Standards
+  status: certified
+  date: '2024-10-29'
+  note: >-
+    "a standard authentication and authorization API model" for insurer-to-BMS
+    APIs; certification verifies all security concerns for API endpoints have
+    been addressed
+  source: https://csio.com/news/wawanesa-insurance-achieves-api-security-standards-certification-safeguarding-data-and
+related:
+  scopes: scopes/wawanesa-scopes.yml
+  well_known: well-known/wawanesa-well-known.yml
+  conformance: conformance/wawanesa-conformance.yml

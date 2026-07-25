@@ -1,0 +1,85 @@
+generated: '2026-07-25'
+method: searched
+source: live probes of every Wawanesa host in apis.yml (2026-07-25)
+note: >-
+  Wawanesa publishes no /.well-known/ surface on its public web or API hosts.
+  www.wawanesa.com answers 200 for every /.well-known/* path but serves the
+  site's catch-all HTML shell (a soft 404), so none of those responses are real
+  documents. api.wawanesa.com answers 403 (nginx) for every path including
+  /.well-known/*. The only genuine discovery documents on any Wawanesa host are
+  the identity-provider metadata for the gated Broker Platform: an Okta
+  OpenID Connect / OAuth 2.0 authorization-server document at
+  login.brokerplatform.wawanesa.com and a Salesforce Experience Cloud OpenID
+  Connect document at brokerplatform.wawanesa.com. Both were fetched
+  anonymously and are saved verbatim. They describe how brokers log in; neither
+  describes a Wawanesa insurance API.
+hosts:
+- host: https://login.brokerplatform.wawanesa.com
+  role: broker identity provider (Okta)
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    content_type: application/json
+    file: wawanesa-brokerplatform-login-openid-configuration.json
+    spec: OpenID Connect Discovery 1.0
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    content_type: application/json
+    file: wawanesa-brokerplatform-login-oauth-authorization-server.json
+    spec: RFC 8414 OAuth 2.0 Authorization Server Metadata
+  - path: /.well-known/security.txt
+    status: 405
+    note: method not allowed; Okta org host, no RFC 9116 document
+- host: https://brokerplatform.wawanesa.com
+  role: broker platform (Salesforce Experience Cloud)
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    content_type: application/json;charset=UTF-8
+    file: wawanesa-brokerplatform-openid-configuration.json
+    spec: OpenID Connect Discovery 1.0
+  - path: /.well-known/oauth-authorization-server
+    status: 401
+    note: gated
+- host: https://api.wawanesa.com
+  role: non-public API host; nginx answers 403 at the root and for every path
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/openid-configuration
+    status: 403
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+  - path: /.well-known/api-catalog
+    status: 403
+  - path: /.well-known/ai-plugin.json
+    status: 403
+- host: https://www.wawanesa.com
+  role: public marketing site
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    real: false
+    note: soft 404 — returns the site's catch-all HTML shell, not RFC 9116 text
+  - path: /.well-known/api-catalog
+    status: 200
+    real: false
+    note: soft 404 — catch-all HTML shell
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    real: false
+    note: soft 404 — catch-all HTML shell
+  - path: /llms.txt
+    status: 200
+    real: false
+    note: soft 404 — catch-all HTML shell
+- host: https://membercentre.wawanesa.com
+  role: consumer policyholder portal
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+security_txt:
+  published: false
+  note: no RFC 9116 security.txt on any Wawanesa host
