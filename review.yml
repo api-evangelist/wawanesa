@@ -1,0 +1,242 @@
+aid: wawanesa
+name: Wawanesa Insurance
+review:
+  question: Does Wawanesa Insurance publish a public, self-serve developer portal or downloadable API definitions?
+  answer: false
+  date: '2026-07-25'
+  reviewer: API Evangelist
+  homeMarket: Canada
+  tier: carrier-pc
+  gated: true
+findings:
+  summary: |
+    Wawanesa Insurance publishes no public developer portal, no API reference,
+    no OpenAPI/Swagger definition, no Postman collection, no GraphQL surface and
+    no event/webhook catalog. Wawanesa does have a real broker-facing API
+    programme — it announced a Commercial Small Business API on 2022-03-30,
+    built with HUB International and "fully aligned with CSIO data standards",
+    doing real-time rating, quote and bind — but the only stated onboarding path
+    is "contact their Wawanesa Business Development representative", and the
+    only integration surface reachable on the open internet is the Broker
+    Platform login wall. This is the textbook Canadian carrier posture: real
+    integration exists, entirely inside the broker channel, with the standards
+    layer supplied by CSIO rather than ACORD.
+  developerPortal:
+    exists: false
+    url: ''
+    portalConfirmed: false
+    classification: none — no first-party developer surface of any kind; the only
+      partner surface is a Salesforce Experience Cloud broker platform behind an
+      Okta login wall
+  probes:
+    - url: https://developer.wawanesa.com/
+      status: 000
+      note: does not resolve (no DNS)
+    - url: https://developers.wawanesa.com/
+      status: 000
+      note: does not resolve (no DNS)
+    - url: https://docs.wawanesa.com/
+      status: 000
+      note: does not resolve (no DNS)
+    - url: https://api.wawanesa.com/
+      status: 403
+      note: host exists and answers with an nginx "403 Forbidden" page at the root;
+        not a public API surface
+    - url: https://api.wawanesa.com/health
+      status: 200
+      note: returns plain-text "OK" — a liveness probe, not documentation
+    - url: https://api.wawanesa.com/openapi.json
+      status: 403
+      note: forbidden (also .yaml, /swagger.json, /api-docs, /v1/openapi.json,
+        /.well-known/oauth-authorization-server — all 403 nginx HTML)
+    - url: https://www.wawanesa.com/developers
+      status: 200
+      note: NOT a real page — wawanesa.com serves a catch-all redirect to
+        https://www.wawanesa.com/us/ for unknown paths; same for /api, /developer,
+        /partners, /integrations
+    - url: https://www.wawanesa.com/canada/brokers.html
+      status: 200
+      note: resolves to https://www.wawanesa.com/error/404.html
+    - url: https://www.wawanesalife.com/developers
+      status: 200
+      note: resolves to https://www.wawanesalife.com/error/404.html ("Page not found")
+    - url: https://www.wawanesa.com/broker
+      status: 200
+      note: redirects to https://findabroker.wawanesa.com/broker — a consumer
+        broker-locator app, not a developer surface
+    - url: https://brokerplatform.wawanesa.com/
+      status: 200
+      note: redirects to /s/ — Salesforce Experience Cloud broker platform, gated
+    - url: https://login.brokerplatform.wawanesa.com/
+      status: 200
+      note: Okta-hosted broker login wall
+    - url: https://membercentre.wawanesa.com/
+      status: 200
+      note: redirects to /en/login — consumer policyholder portal, gated
+    - url: https://api.github.com/orgs/wawanesa
+      status: 404
+      note: no Wawanesa GitHub organization
+  openapi:
+    harvested: false
+    specsCount: 0
+    note: No OpenAPI, Swagger, AsyncAPI, GraphQL SDL or .proto artifact is
+      published anywhere on a Wawanesa host. The openapi/ directory is therefore
+      omitted from this repository rather than filled with anything synthesized.
+  acordPosture:
+    phrase: no ACORD reference found; CSIO data standards instead (Commercial Small
+      Business Standards + CSIO My Proof of Insurance)
+    evidence:
+      - source: https://www.wawanesa.com/canada/search?q=ACORD
+        note: 'first-party site search returns: "No results found for keyword ACORD"'
+      - source: https://www.wawanesa.com/canada/news/wawanesa-improves-insurance-quotes-for-small-businesses
+        note: '2022-03-30 — "New API aligns with CSIO Commercial Small Business
+          Standards ... Fully aligned with CSIO data standards, Wawanesa''s new API
+          enables brokers to securely connect their information systems with
+          Wawanesa''s"'
+      - source: https://www.wawanesa.com/canada/news/wawanesa-implements-CSIO-MPOI
+        note: '2020-01-20 — Wawanesa implemented CSIO''s My Proof of Insurance
+          (electronic pink slips) for brokers in Alberta, Ontario and Nova Scotia;
+          CSIO also operates CSIOnet, the industry-owned mail network'
+      - source: https://www.wawanesa.com/canada/news/wawanesa-furthers-commitment-to-brokers-with-new-broker-platform
+        note: '2022-03-28 — "has also adopted numerous APIs that help make doing
+          business easier, and is proud to take a leadership role in the Insurance
+          Brokers Association of Canada''s D/X initiative"'
+    interpretation: Canada's broker-connectivity standards body is CSIO, not ACORD;
+      CSIO plays the role IVANS/ACORD AL3 plays in the United States. Wawanesa
+      names CSIO repeatedly and ACORD never.
+  insuranceVerbs:
+    quote:
+      exposed: true
+      audience: agent-facing (independent brokers only)
+      note: Commercial Small Business API — "accurate risk rating, quotes"; no public docs
+    bind:
+      exposed: true
+      audience: agent-facing (independent brokers only)
+      note: '"the ability to bind in real-time"'
+    issue:
+      exposed: false
+      note: no issuance/policy-administration API is publicly documented; policy
+        administration runs on Guidewire InsuranceSuite behind the broker platform
+    fnol:
+      exposed: false
+      note: no FNOL/claims API is published. Claims intake is a consumer web form
+        (https://www.wawanesa.com/canada/claims/submit-a-claim) and broker claim
+        submission inside the gated Broker Platform.
+  authModel:
+    scheme: OAuth2 / OpenID Connect authorization-code (human broker login), no
+      documented machine-to-machine credential for third parties
+    discovery:
+      - url: https://login.brokerplatform.wawanesa.com/.well-known/openid-configuration
+        status: 200
+        issuer: https://login.brokerplatform.wawanesa.com
+        provider: Okta (response_modes_supported includes okta_post_message)
+        grantTypes: [authorization_code, implicit, refresh_token, password,
+          'urn:ietf:params:oauth:grant-type:device_code']
+        scopes: [openid, email, profile, address, phone, offline_access, groups]
+      - url: https://brokerplatform.wawanesa.com/.well-known/openid-configuration
+        status: 200
+        issuer: https://brokerplatform.wawanesa.com
+        provider: Salesforce Experience Cloud (endpoints under /services/oauth2/)
+        note: scopes advertised are stock Salesforce platform scopes (api, web,
+          chatter_api, cdp_*, etc.), not insurance business scopes
+    note: Both discovery documents were fetched anonymously and are stock IdP
+      metadata. They describe how brokers log in; they do not describe any
+      Wawanesa insurance API.
+  webhooks:
+    exists: false
+    note: no event catalog, no AsyncAPI, no webhook documentation found
+  postman:
+    exists: false
+    note: no public Postman workspace or collection found
+  graphql:
+    exists: false
+  grpc:
+    exists: false
+  coreSystems:
+    - name: Guidewire InsuranceSuite
+      role: policy, claims and billing core system; Wawanesa completed a ~$300M
+        Strategic Systems Renewal with Capgemini as PolicyCenter transformation
+        partner, becoming among the first Canadian insurers with its entire
+        product suite online
+      source: https://www.wawanesa.com/canada/news/wawanesa-leads-way-commercial-property
+    - name: Salesforce Experience Cloud
+      role: Broker Platform (brokerplatform.wawanesa.com), launched 2022, replacing
+        the legacy Broker Portal
+    - name: Okta
+      role: broker identity provider
+  transports:
+    - protocol: REST
+      scheme: https
+      documented: false
+      note: A broker-facing REST API programme is announced but no base URL,
+        reference, or definition is published.
+    - protocol: HTTPS web portal
+      scheme: https
+      baseURL: https://brokerplatform.wawanesa.com/
+      documented: true
+      gated: true
+      note: The only reachable integration surface — a login-walled broker platform.
+    - protocol: WebSocket
+      documented: false
+    - protocol: GraphQL
+      documented: false
+    - protocol: gRPC
+      documented: false
+  marketContext: |
+    Canada has the most fragmented insurance supervision of the four markets
+    reviewed — OSFI supervises federally-regulated insurers prudentially while
+    the provinces regulate market conduct (FSRA in Ontario, AMF in Quebec) —
+    and there is no open-insurance mandate. Consumer-Driven Banking, Canada's
+    open-banking framework, excludes insurance entirely. Wawanesa is a
+    broker-distributed mutual sitting outside the Big-Few oligopoly (Intact,
+    Definity, Co-operators, Desjardins) and outside the thin digital-broker
+    layer (Zensurance, APOLLO, Goose). With no forcing function, its API
+    investment lands where its distribution is: inside the broker channel,
+    standardized by CSIO, and invisible to the public internet.
+sources:
+  - url: https://www.wawanesa.com/canada/
+    type: Website
+    status: 200
+    note: Wawanesa Canada homepage; links to Broker Platform login and Find a Broker.
+  - url: https://www.wawanesa.com/canada/news/wawanesa-improves-insurance-quotes-for-small-businesses
+    type: News
+    status: 200
+    note: Commercial Small Business API announcement (2022-03-30) — CSIO-aligned,
+      quote + bind, broker onboarding via Business Development rep.
+  - url: https://www.wawanesa.com/canada/news/wawanesa-furthers-commitment-to-brokers-with-new-broker-platform
+    type: News
+    status: 200
+    note: Broker Platform launch (2022-03-28); "adopted numerous APIs"; IBAC D/X.
+  - url: https://www.wawanesa.com/canada/news/wawanesa-implements-CSIO-MPOI
+    type: News
+    status: 200
+    note: CSIO My Proof of Insurance implementation (2020-01-20).
+  - url: https://www.wawanesa.com/canada/news/wawanesa-leads-way-commercial-property
+    type: News
+    status: 200
+    note: Guidewire InsuranceSuite completion (2020-08-18), ~$300M programme.
+  - url: https://www.wawanesa.com/canada/news/wawanesa-continues-to-grow-in-ontario
+    type: News
+    status: 200
+    note: '"In addition to an industry leading suite of APIs, Wawanesa is working to
+      make small commercial insurance easier to quote, bind and renew."'
+  - url: https://www.wawanesa.com/canada/about-us/about-financial.html
+    type: Website
+    status: 200
+    note: A.M. Best A (Excellent) for Wawanesa Mutual and Wawanesa Life.
+  - url: https://www.wawanesa.com/us/about-us/wawanesa-to-w-insurance
+    type: Website
+    status: 200
+    note: Title "Wawanesa to W Insurance" — the former U.S. arm is rebranding and is
+      now operated separately from the Canadian mutual; this profile covers Canada.
+actions:
+  apisYmlCreated: true
+  apisListed: 1
+  openapiDirectoryCreated: false
+  reason: |
+    One apis[] entry is recorded — the Commercial Small Business API — because
+    Wawanesa attests to it in a first-party press release naming its capability
+    (rating, quote, bind) and its standard (CSIO). It is listed with the
+    announcement as its only Documentation property, no baseURL and no
+    APIReference, because none is published. No OpenAPI was harvested and the
+    openapi/ directory is deliberately omitted. Nothing was synthesized.

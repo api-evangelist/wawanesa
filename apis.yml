@@ -1,0 +1,110 @@
+aid: wawanesa
+url: https://raw.githubusercontent.com/api-evangelist/wawanesa/refs/heads/main/apis.yml
+name: Wawanesa Insurance
+kind: company
+description: >-
+  The Wawanesa Mutual Insurance Company, founded in 1896 in Wawanesa, Manitoba
+  and headquartered in Winnipeg, is one of Canada's largest property and
+  casualty mutual insurers, writing auto, home, condo, tenant, seasonal
+  residence, farm and commercial lines across every province and territory
+  through a 100% independent broker distribution model, alongside its
+  wholly-owned life and group subsidiary Wawanesa Life. Wawanesa runs its
+  policy, claims and billing on Guidewire InsuranceSuite following a roughly
+  $300 million Strategic Systems Renewal that made it one of the first Canadian
+  insurers to put its entire product suite online, and it has announced a
+  broker-facing API programme — most notably a Commercial Small Business API
+  aligned to CSIO data standards that supports real-time rating, quoting and
+  binding — plus CSIO My Proof of Insurance electronic pink slips. None of that
+  surface is public: Wawanesa publishes no developer portal, no API reference,
+  no OpenAPI, and no self-serve signup. Probes of developer./developers./docs.
+  wawanesa.com do not resolve, api.wawanesa.com answers 403 at the root, and the
+  only integration path is the Salesforce-based Broker Platform behind an Okta
+  login with onboarding brokered by a Wawanesa Business Development
+  representative. Canada has no open-insurance mandate — Consumer-Driven Banking
+  excludes insurance outright — so the connectivity layer here is CSIO, not
+  ACORD, and the honest posture is partner-gated with no public API.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Insurance
+- Canada
+- Property and Casualty
+- Carrier
+- Mutual Insurer
+- Broker
+- Commercial Lines
+- Personal Lines
+- Underwriting
+- Claims
+- Policy Administration
+- CSIO
+- Partner Gated
+created: '2026-07-25'
+modified: '2026-07-25'
+specificationVersion: '0.19'
+apis:
+- aid: wawanesa:wawanesa-commercial-small-business-api
+  name: Wawanesa Commercial Small Business API
+  description: >-
+    Broker-facing commercial small business API announced by Wawanesa on
+    2022-03-30, built with HUB International and described by Wawanesa as
+    "fully aligned with CSIO data standards". Per the company announcement it
+    lets brokers connect their information systems to Wawanesa for real-time
+    risk rating, quoting and binding, with tailored packages for Business &
+    Professional Services, Retail Services and Contractors. There is no public
+    developer portal, no published API reference, no OpenAPI definition and no
+    documented base URL; the announcement directs brokers to "contact their
+    Wawanesa Business Development representative" to integrate. Listed here
+    because Wawanesa attests to it in a first-party press release, and recorded
+    honestly as partner-gated and undocumented.
+  humanURL: https://www.wawanesa.com/canada/news/wawanesa-improves-insurance-quotes-for-small-businesses
+  tags:
+  - Insurance
+  - Commercial Lines
+  - Small Business
+  - Quote
+  - Bind
+  - Rating
+  - Broker
+  - CSIO
+  - Partner Gated
+  properties:
+  - type: Documentation
+    url: https://www.wawanesa.com/canada/news/wawanesa-improves-insurance-quotes-for-small-businesses
+  - type: PartnerPortal
+    url: https://brokerplatform.wawanesa.com/
+  - type: Authentication
+    url: https://login.brokerplatform.wawanesa.com/.well-known/openid-configuration
+common:
+- type: Website
+  url: https://www.wawanesa.com/canada/
+- type: Blog
+  url: https://www.wawanesa.com/canada/blog/
+- type: News
+  url: https://www.wawanesa.com/canada/news/
+- type: PartnerPortal
+  url: https://brokerplatform.wawanesa.com/
+- type: Login
+  url: https://login.brokerplatform.wawanesa.com/
+- type: CustomerPortal
+  url: https://membercentre.wawanesa.com/
+- type: Contact
+  url: https://www.wawanesa.com/canada/contact-us/inquiries-and-feedback.html
+- type: PrivacyPolicy
+  url: https://www.wawanesa.com/canada/pip/about-privacy.html
+- type: TermsOfService
+  url: https://www.wawanesa.com/canada/pip/terms-and-conditions.html
+- type: Careers
+  url: https://www.wawanesa.com/jobs/
+- type: LinkedIn
+  url: https://www.linkedin.com/company/wawanesa-insurance
+- type: Twitter
+  url: https://twitter.com/wawanesa
+- type: Facebook
+  url: https://www.facebook.com/wawanesainsurance
+- type: YouTube
+  url: https://www.youtube.com/c/wawanesa
+- type: Instagram
+  url: https://instagram.com/wawanesacanada
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
