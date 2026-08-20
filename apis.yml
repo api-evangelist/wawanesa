@@ -37,6 +37,20 @@ tags:
 - Property and Casualty
 - Carrier
 - Mutual Insurer
+- Brokers
+- Commercial Lines
+- Personal Lines
+- Underwriting
+- Claims
+- Policy Administration
+- CSIO
+- Partner Gated
+tags_raw:
+- Insurance
+- Canada
+- Property and Casualty
+- Carrier
+- Mutual Insurer
 - Broker
 - Commercial Lines
 - Personal Lines
@@ -65,6 +79,16 @@ apis:
     honestly as partner-gated and undocumented.
   humanURL: https://www.wawanesa.com/canada/news/wawanesa-improves-insurance-quotes-for-small-businesses
   tags:
+  - Insurance
+  - Commercial Lines
+  - Small Business
+  - Quotes
+  - Bind
+  - Rating
+  - Brokers
+  - CSIO
+  - Partner Gated
+  tags_raw:
   - Insurance
   - Commercial Lines
   - Small Business
