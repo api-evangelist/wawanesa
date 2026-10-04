@@ -62,7 +62,6 @@ tags:
 - Property and Casualty
 - Carrier
 - Mutual Insurer
-- Brokers
 - Commercial Lines
 - Personal Lines
 - Underwriting
@@ -76,7 +75,6 @@ tags_raw:
 - Property and Casualty
 - Carrier
 - Mutual Insurer
-- Broker
 - Commercial Lines
 - Personal Lines
 - Underwriting
@@ -180,3 +178,5 @@ common:
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-tags-removed:
+- Brokers
