@@ -47,6 +47,9 @@ accessModel:
   trial: false
   try_now: false
   public: false
+  gated: partner
+  gated_source:
+  - tag:Partner Gated
   label: Self-serve signup
   confidence: medium
   source:
@@ -68,7 +71,6 @@ tags:
 - Claims
 - Policy Administration
 - CSIO
-- Partner Gated
 tags_raw:
 - Insurance
 - Canada
@@ -81,7 +83,6 @@ tags_raw:
 - Claims
 - Policy Administration
 - CSIO
-- Partner Gated
 created: '2026-07-25'
 modified: '2026-07-25'
 specificationVersion: '0.23'
@@ -180,3 +181,4 @@ maintainers:
   email: kin@apievangelist.com
 x-tags-removed:
 - Brokers
+- Partner Gated
