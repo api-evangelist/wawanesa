@@ -109,9 +109,8 @@ apis:
   - Quotes
   - Bind
   - Ratings
-  - Brokers
+  - Brokerage
   - CSIO
-  - Partner Gated
   tags_raw:
   - Insurance
   - Commercial Lines
@@ -122,6 +121,7 @@ apis:
   - Broker
   - CSIO
   - Partner Gated
+  - Brokers
   properties:
   - type: Documentation
     url: https://www.wawanesa.com/canada/news/wawanesa-improves-insurance-quotes-for-small-businesses
